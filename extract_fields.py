@@ -10,18 +10,13 @@ LABEL_TEXT_RE = re.compile(r"^[A-Za-z&][A-Za-z &]{1,38}$")
 
 
 def _is_all_caps_label(line):
-    """The strong signal: ALL CAPS text is almost always a label, never
-    a value, in every document type we've tested (ID cards, receipts)."""
+    
     line = line.strip()
     return bool(LABEL_TEXT_RE.match(line)) and line.isupper()
 
 
 def _looks_like_label(line):
-    """The weaker signal: Title Case could be a label OR a value (e.g.
-    a person's name is Title Case too). Only used to identify label
-    candidates, never to disqualify something from being a value —
-    that's what caused "NAME" / "Liam Nguyen" to be missed initially,
-    since "Liam Nguyen" also matched this pattern."""
+    
     line = line.strip()
     if not LABEL_TEXT_RE.match(line):
         return False
@@ -34,8 +29,7 @@ def _looks_like_label(line):
 
 
 def extract_fields(text):
-    """Returns a list of {"label": ..., "value": ...} dicts, in the
-    order they appeared in the text."""
+    
     lines = [ln.strip() for ln in text.splitlines()]
     fields = []
     i = 0

@@ -8,9 +8,7 @@ from preprocess import preprocess
 
 
 def recognize_text(image_path, do_denoise=True, do_deskew=True, do_binarize=False):
-    """Returns a dict with the recognized text, a mean confidence score
-    (0-100, from Tesseract's own per-word confidence), and preprocessing
-    info (like the detected skew angle)."""
+    
     img, info = preprocess(
         image_path, do_denoise=do_denoise, do_deskew=do_deskew, do_binarize=do_binarize
     )

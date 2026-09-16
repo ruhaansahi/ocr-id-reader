@@ -17,9 +17,7 @@ def denoise(gray, strength=10):
 
 
 def deskew(gray):
-    """Detects the dominant text angle and rotates the image to straighten it.
-    Falls back to the original image if no clear angle is found (e.g. a
-    photo with very little text)."""
+    
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
     coords = np.column_stack(np.where(thresh > 0))
 
@@ -43,19 +41,13 @@ def deskew(gray):
 
 
 def binarize(gray):
-    """Off by default — testing showed this hurts accuracy on rotated or
-    blurred text more than it helps, since it destroys the antialiasing
-    detail Tesseract's own internal thresholding relies on. Kept as an
-    option for document types where it does help, like scans with very
-    uneven lighting."""
+    
     _, result = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     return result
 
 
 def preprocess(image_path, do_denoise=True, do_deskew=True, do_binarize=False):
-    """Runs the pipeline on an image file and returns the processed image
-    as a numpy array, ready for OCR. Also returns a dict of what happened,
-    for debugging."""
+    
     img = cv2.imread(str(image_path))
     if img is None:
         raise FileNotFoundError(f"Could not read image: {image_path}")

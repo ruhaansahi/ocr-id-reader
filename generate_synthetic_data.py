@@ -1,12 +1,3 @@
-"""
-Generates fake ID-card images with randomized names, ID numbers, and
-dates, plus a ground-truth label file. This is the test data for the
-rest of the pipeline — real IDs are personal data, so everything here
-is invented.
-
-Usage:
-    python3 generate_synthetic_data.py --count 200
-"""
 
 import argparse
 import csv
@@ -34,12 +25,7 @@ TEXT_COLOR = (20, 20, 20)
 
 
 def find_fonts():
-    """Uses the fonts bundled in assets/fonts/ so every machine renders
-    identical images — relying on whatever font happens to be installed
-    per-OS (Arial on Mac, DejaVu on Linux, etc.) produced visibly
-    different text rendering and, in testing, noticeably different OCR
-    accuracy on the same "image". Falls back to system fonts, then
-    PIL's built-in bitmap font, only if the bundled files are missing."""
+    
     script_dir = Path(__file__).resolve().parent
     bundled_bold = script_dir / "assets" / "fonts" / "DejaVuSans-Bold.ttf"
     bundled_regular = script_dir / "assets" / "fonts" / "DejaVuSans.ttf"
