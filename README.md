@@ -15,15 +15,15 @@ ID cards or receipts.
 - **Measure its own accuracy** — an evaluation script runs the full pipeline against the synthetic dataset and reports character error rate, word error rate, and per-field accuracy, broken down by difficulty tier.
 - **Command-line interface** — one entry point (`main.py`) ties everything together, with plain-text or JSON output.
 
-## Libraries used
+## Tech stack
 
-**Pillow (PIL)** — a general Python library for creating and editing images (drawing shapes, rendering text, applying filters). Used in `generate_synthetic_data.py` to draw the fake ID cards from scratch: the card background, header bar, label/value text, and the rotation/blur applied for the harder difficulty tiers.
+- **Python**
+- **Tesseract OCR** — recognition engine (system binary)
+- **pytesseract** — Python wrapper for Tesseract
+- **OpenCV** — preprocessing (grayscale, denoising, deskewing, binarization)
+- **NumPy** — array operations underpinning OpenCV
+- **Pillow** — synthetic test data generation
 
-**OpenCV (`cv2`)** — a computer vision library used for image processing operations. Used in `preprocess.py` for the whole cleanup pipeline: converting to grayscale, denoising (removing camera/scan grain), detecting and correcting rotation (deskewing, via Otsu thresholding and `minAreaRect`), and an optional binarization step.
-
-**NumPy** — the standard numerical array library for Python. Used underneath OpenCV's operations, particularly for handling pixel coordinate arrays during deskew angle detection.
-
-**pytesseract** — a Python wrapper around the Tesseract OCR engine. This is the library that actually performs character recognition, in `recognize.py`: `image_to_string` returns the extracted text, `image_to_data` returns per-word confidence scores.
 
 ## Tools used
 
